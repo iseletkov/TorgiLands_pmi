@@ -1,9 +1,12 @@
-package com.example.testxmlui.ui.main_compose
+package com.example.testxmlui.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,22 +32,45 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.testxmlui.CActivityLandInfo
 import com.example.testxmlui.R
 import com.example.testxmlui.ui.theme.TestXMLUITheme
 import com.example.testxmlui.vm.CViewModelActivityCompose
 
 class CActivityMainCompose      : ComponentActivity() {
     private val viewModel       : CViewModelActivityCompose by viewModels()
+
+    private lateinit var activityLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             PreviewUI()
         }
+
+        activityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        { result ->
+            // используем result
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data?.extras
+                Toast.makeText(
+                    this,
+                    ""+(data?.getString("MY_PARAM_2", "Параметр не найден!!!")?:"Параметры не переданы!!!"),
+                    Toast.LENGTH_LONG
+                ).show()
+                var x = 0
+            }
+        }
     }
 
     fun onClick()
     {
+        val intent = Intent(this, CActivityLandInfo::class.java)
+        intent.putExtra("MY_PARAM", viewModel.value1)
+        activityLauncher.launch(intent)
+
         val val1        : Double
         val val2        : Double
         val message = try {
@@ -63,6 +89,25 @@ class CActivityMainCompose      : ComponentActivity() {
         )
             .show()
     }
+//    class CContractActivityLandInfo : ActivityResultContract<String, Int?>() {
+//        override fun createIntent(context: Context, input: String): Intent {
+//            return Intent(context, CContractActivityLandInfo::class.java)
+//                //.putExtra("my_input_key", input)
+//        }
+//
+//        override fun parseResult(resultCode: Int, intent: Intent?
+//        ): Int {
+//            return 0
+//        }
+////        = when {
+//////            resultCode != Activity.RESULT_OK -> null
+//////            else -> intent?.getIntExtra("my_result_key", 42)
+////        }
+//
+////        override fun getSynchronousResult(context: Context, input: String?): SynchronousResult<Int?>? {
+////            return if (input.isNullOrEmpty()) SynchronousResult(42) else null
+////        }
+//    }
 }
 @Composable
 private fun Menu()
@@ -106,7 +151,8 @@ private fun TopAppBar()
         title = {
             Text(
                 context.getString(
-                    R.string.list_lands),
+                    R.string.list_lands
+                ),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

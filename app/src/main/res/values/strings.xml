@@ -48,4 +48,5 @@
     <string name="settings">setting</string>
     <string name="help">Help</string>
     <string name="list_lands">Lands</string>
+    <string name="title_activity_cland_info">CActivityLandInfo</string>
 </resources>
