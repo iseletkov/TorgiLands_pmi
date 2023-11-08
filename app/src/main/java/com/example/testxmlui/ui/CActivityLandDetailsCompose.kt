@@ -1,4 +1,4 @@
-package com.example.testxmlui
+package com.example.testxmlui.ui
 
 import android.content.Intent
 import android.os.Bundle

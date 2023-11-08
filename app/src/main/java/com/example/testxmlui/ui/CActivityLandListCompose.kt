@@ -32,12 +32,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.testxmlui.CActivityLandInfo
 import com.example.testxmlui.R
 import com.example.testxmlui.ui.theme.TestXMLUITheme
 import com.example.testxmlui.vm.CViewModelActivityCompose
 
-class CActivityMainCompose      : ComponentActivity() {
+class CActivityLandListCompose  : ComponentActivity() {
     private val viewModel       : CViewModelActivityCompose by viewModels()
 
     private lateinit var activityLauncher: ActivityResultLauncher<Intent>
@@ -67,7 +66,7 @@ class CActivityMainCompose      : ComponentActivity() {
 
     fun onClick()
     {
-        val intent = Intent(this, CActivityLandInfo::class.java)
+        val intent = Intent(this, CActivityLandDetailsClassic::class.java)
         intent.putExtra("MY_PARAM", viewModel.value1)
         activityLauncher.launch(intent)
 
@@ -181,7 +180,7 @@ private fun Content(
 )
 {
     // fetching local context
-    val activity = LocalContext.current as? CActivityMainCompose
+    val activity = LocalContext.current as? CActivityLandListCompose
     val viewModel = viewModel { CViewModelActivityCompose() }
     Column(
         modifier = Modifier

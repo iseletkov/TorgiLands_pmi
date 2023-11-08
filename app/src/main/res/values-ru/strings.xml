@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TestXMLUI</string>
+    <string name="app_name">Торги участками</string>
     <string name="Password">Пароль</string>
     <string name="settings">Настройки</string>
     <string name="help">Справка</string>
-    <string name="list_lands">Торги участками</string>
+    <string name="list_lands">Список участков</string>
+    <string name="header">Заголовок</string>
+    <string name="title_activity_land_list">Список участков</string>
+    <string name="title_activity_land_detail">Информация по участку</string>
+    <string name="price">Начальная цена</string>
+    <string name="square">Площадь</string>
+    <string name="landType">Вид разрешённого использования</string>
+    <string name="Save">Сохранить</string>
+    <string name="Cancel">Отмена</string>
 </resources>

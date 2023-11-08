@@ -1,8 +1,11 @@
 package com.example.testxmlui.model
 
+import java.util.UUID
+
 data class CLand(
-    val header : String,
-    val price : Double,
-    val square : Double,
-    val type : String
+    var id : UUID,
+    var header : String,
+    var price : Double,
+    var square : Double,
+    var type : String
 )
